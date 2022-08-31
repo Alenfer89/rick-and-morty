@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <header class="container-fluid">
-      <Jumbotron />
-    </header>
+
+    <Jumbotron />
+    
     <div class="container-fluid p-5">
       <div class="row p-5">
         <div class="col-3 px-4 py-3"
