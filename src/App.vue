@@ -6,8 +6,8 @@
     <div class="container-fluid p-5">
       <div class="row p-5">
         <div class="col-3 px-4 py-3"
-        v-for="(element, index) in charactersList" 
-        :key="index">
+        v-for="element in charactersList" 
+        :key="element.id">
           <Card
           :title="element.name"
           :image="element.image"
