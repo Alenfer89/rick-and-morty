@@ -1,10 +1,26 @@
 <template>
   <div id="app">
-    <Jumbotron />
-    <Card />
-    <ModalCard />
+    <header class="container-fluid">
+      <Jumbotron />
+    </header>
+    <div class="container-fluid p-5">
+      <div class="row p-5">
+        <div class="col-3 px-4 py-3"
+        v-for="(element, index) in charactersList" 
+        :key="index">
+          <Card
+          :title="element.name"
+          :image="element.image"
+          :description="element.status"
+          :boldDescription="element.species"
+          />
+        </div>
+      </div>
+      
+      <ModalCard />
+      <Favourite />
+    </div>
     <Pagination />
-    <Favourite />
   </div>
 </template>
 
@@ -59,6 +75,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/style/style.scss';
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
