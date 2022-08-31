@@ -34,7 +34,7 @@ export default {
 <style lang='scss' scoped>
 
     header.ax-jumbo-bg{
-        padding: 6rem;
+        padding: 8rem 0;
         background-image: url('https://www.pointblank.it/sites/default/files/styles/slide/public/2016-09/Rick_e_Morty_recensione_serie_tv.jpg?itok=YuGPLNpb');
         background-position: center;
         background-repeat: no-repeat;
@@ -57,6 +57,7 @@ export default {
             z-index: 2;
             img{
                 width: 60%;
+                min-width: 250px;
             }
         }
     }

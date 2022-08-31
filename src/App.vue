@@ -2,7 +2,13 @@
   <div id="app">
 
     <Jumbotron />
-    
+
+    <Pagination
+    :nextPage='apiNextAddress'
+    :prevPage='apiPrevAddress'
+    @address='getApiList'
+    />
+
     <div class="container-fluid p-5">
       <div class="row p-5">
         <div class="col-3 px-4 py-3"
@@ -20,7 +26,11 @@
       <ModalCard />
       <Favourite />
     </div>
-    <Pagination />
+    <Pagination
+    :nextPage='apiNextAddress'
+    :prevPage='apiPrevAddress'
+    @address='getApiList'
+    />
   </div>
 </template>
 
@@ -48,29 +58,32 @@ export default {
         return{
             apiBaseAddress: "https://rickandmortyapi.com/api/character",
             apiNextAddress : null,
-            charactersList : null,
+            apiPrevAddress : null,
+            apiPageAddress : null,
+            charactersList : null
         }
   },
   created: function(){
-        this.getApiList();
+        this.getApiList(this.apiBaseAddress);
     },
-    methods: {
-        getApiList(){
-            //console.log(apiAddress);
-            axios
-            .get('https://rickandmortyapi.com/api/character')
-            .then((result) => {
-                // console.warn(result.data.info.next);
-                this.charactersList = result.data.results;
-                this.apiNextAddress = result.data.info.next;
+  methods: {
+      getApiList(apiBaseAddress){
+          axios
+          .get(apiBaseAddress)
+          .then((result) => {
+              this.charactersList = result.data.results;
+              this.apiNextAddress = result.data.info.next;
+              this.apiPrevAddress = result.data.info.prev;
 
-                console.log(this.charactersList);
-            })
-            .catch((error) => {
-                console.error(error);
-            })
-        },
-    },
+              console.log(this.charactersList);
+              console.log(this.apiNextAddress);
+              console.log(this.apiPrevAddress);
+          })
+          .catch((error) => {
+              console.error(error);
+          })
+      },
+  }
 }
 </script>
 
