@@ -1,18 +1,60 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Jumbotron />
+    <Card />
+    <ModalCard />
+    <Pagination />
+    <Favourite />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//components
+import Jumbotron from './components/Jumbotron.vue';
+import Card from './components/Card.vue';
+import ModalCard from './components/ModalCard.vue';
+import Pagination from './components/Pagination.vue';
+import Favourite from './components/Favourite.vue';
+//utilities
+import axios from "axios";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    Jumbotron,
+    Card,
+    ModalCard,
+    Pagination,
+    Favourite
+  },
+  data: function(){
+        return{
+            apiBaseAddress: "https://rickandmortyapi.com/api/character",
+            apiNextAddress : null,
+            charactersList : null,
+        }
+  },
+  created: function(){
+        this.getApiList();
+    },
+    methods: {
+        getApiList(){
+            //console.log(apiAddress);
+            axios
+            .get('https://rickandmortyapi.com/api/character')
+            .then((result) => {
+                // console.warn(result.data.info.next);
+                this.charactersList = result.data.results;
+                this.apiNextAddress = result.data.info.next;
+
+                console.log(this.charactersList);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+        },
+    },
 }
 </script>
 
