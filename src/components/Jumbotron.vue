@@ -16,7 +16,10 @@
                                 @
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"
+                        v-model.trim="searchInput"
+                        @keyup="newSearchStart"
+                        >
                     </div>
                 </div>
             </div>
@@ -27,7 +30,24 @@
 
 <script>
 export default {
-    name: 'JumbotronAndSearch'
+    name: 'JumbotronAndSearch',
+    data: function(){
+        return {
+            searchInput : '',
+            apiByChar: 'https://rickandmortyapi.com/api/character/?name=',
+        }
+    },
+    methods: {
+        newSearchStart(){
+            if(this.searchInput === '') {
+                console.log('check empty string');
+            } else {
+                let address = this.apiByChar + this.searchInput;
+                this.$emit('address', address);
+                console.error(address)
+            }
+        }
+    }
 }
 </script>
 

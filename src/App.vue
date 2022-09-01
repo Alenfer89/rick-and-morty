@@ -1,13 +1,17 @@
 <template>
   <div id="app">
 
-    <Jumbotron />
+    <Jumbotron 
+    :updatingAddress='apiAddress'
+    @address='getApiList'
+    />
 
     <Pagination
     :nextPage='apiNextAddress'
     :prevPage='apiPrevAddress'
     :pageCount='apiPagesCount'
     :newActive='activePage'
+    :updatingAddress='apiAddress'
     @address='getApiList'
     @active='changeActivePage'
     />
@@ -34,6 +38,7 @@
     :prevPage='apiPrevAddress'
     :pageCount='apiPagesCount'
     :newActive='activePage'
+    :updatingAddress='apiAddress'
     @address='getApiList'
     @active='changeActivePage'
     />
@@ -63,9 +68,9 @@ export default {
   data: function(){
         return{
             apiBaseAddress: "https://rickandmortyapi.com/api/character",
+            apiAddress : null,
             apiNextAddress : null,
             apiPrevAddress : null,
-            //apiPageAddress : "https://rickandmortyapi.com/api/character?page=",
             apiPagesCount : null,
             activePage : 1,
             charactersList : null
@@ -75,10 +80,11 @@ export default {
         this.getApiList(this.apiBaseAddress);
   },
   methods: {
-      getApiList(apiBaseAddress){
+      getApiList(address){
           axios
-          .get(apiBaseAddress)
+          .get(address)
           .then((result) => {
+              this.apiAddress = address;
               this.charactersList = result.data.results;
               this.apiNextAddress = result.data.info.next;
               this.apiPrevAddress = result.data.info.prev;

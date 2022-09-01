@@ -94,13 +94,13 @@
 <script>
 export default {
     name: 'CardsPagination',
-    props: ['nextPage', 'prevPage', 'pageCount', 'newActive'],
+    props: ['nextPage', 'prevPage', 'pageCount', 'newActive', 'updatingAddress'],
     data: function(){
         return {
             //searchStart : true,
             apiNext : null,
             apiPrev : null,
-            apiByPage : "https://rickandmortyapi.com/api/character?page=",
+            apiByPage : null,
             activePage : 1,
             totalPages : null,
             next : 'next',
@@ -119,14 +119,19 @@ export default {
         },
         newActive(){
             this.activePage = this.newActive;
+            //console.error(this.activePage)
+        },
+        updatingAddress(){
+            this.apiByPage = this.updatingAddress;
+            console.log('ciao')
         }
     },
     methods: {
         changePage(address, active, direction){
             if(address !== null){
-                console.error(address)
-                console.error(active)
-                console.error(direction)
+                //console.error(address)
+                //console.error(active)
+                //console.error(direction)
                 this.changeActive(active, direction)
                 this.$emit('address', address)
                 //this.$emit('active', active)
