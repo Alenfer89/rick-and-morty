@@ -6,7 +6,10 @@
     <Pagination
     :nextPage='apiNextAddress'
     :prevPage='apiPrevAddress'
+    :pageCount='apiPagesCount'
+    :newActive='activePage'
     @address='getApiList'
+    @active='changeActivePage'
     />
 
     <div class="container-fluid p-5">
@@ -29,7 +32,10 @@
     <Pagination
     :nextPage='apiNextAddress'
     :prevPage='apiPrevAddress'
+    :pageCount='apiPagesCount'
+    :newActive='activePage'
     @address='getApiList'
+    @active='changeActivePage'
     />
   </div>
 </template>
@@ -59,13 +65,15 @@ export default {
             apiBaseAddress: "https://rickandmortyapi.com/api/character",
             apiNextAddress : null,
             apiPrevAddress : null,
-            apiPageAddress : null,
+            //apiPageAddress : "https://rickandmortyapi.com/api/character?page=",
+            apiPagesCount : null,
+            activePage : 1,
             charactersList : null
         }
   },
   created: function(){
         this.getApiList(this.apiBaseAddress);
-    },
+  },
   methods: {
       getApiList(apiBaseAddress){
           axios
@@ -74,15 +82,21 @@ export default {
               this.charactersList = result.data.results;
               this.apiNextAddress = result.data.info.next;
               this.apiPrevAddress = result.data.info.prev;
+              this.apiPagesCount = result.data.info.pages;
 
-              console.log(this.charactersList);
-              console.log(this.apiNextAddress);
-              console.log(this.apiPrevAddress);
+              //console.log(this.charactersList);
+              //console.log(this.apiNextAddress);
+              //console.log(this.apiPrevAddress);
+              //console.warn(this.apiPagesCount);
           })
           .catch((error) => {
               console.error(error);
           })
       },
+      changeActivePage(number){
+        this.activePage = number;
+        return this.activePage;
+      }
   }
 }
 </script>
