@@ -32,6 +32,17 @@
           :boldDescription="element.species"
           />
         </div>
+        <div class="col-12"
+        v-if='(charactersList.length == 0)'
+        >
+          <h2 class="text-warning">
+            Your search of "{{ this.stringToSearch }}" didn't produce any result
+          </h2>
+          <button class="btn btn-danger"
+          @click='resetAll()'>
+            Refresh!
+          </button>
+        </div>
       </div>
       
       <ModalCard />
@@ -72,11 +83,11 @@ export default {
   data: function(){
         return{
             apiBaseAddress: "https://rickandmortyapi.com/api/character",
-            apiNextAddress : null,
-            apiPrevAddress : null,
+            apiNextAddress : '',
+            apiPrevAddress : '',
             apiPagesCount : null,
             activePage : 1,
-            charactersList : null,
+            charactersList : [],
             stringToSearch : ''
         }
   },
@@ -95,7 +106,8 @@ export default {
             })
             .catch((error) => {
                 console.error(error);
-                console.log('ricerca scarsa')
+                console.log('ricerca errata')
+                this.charactersList = [];
             })
         },
         changeActivePage(number){

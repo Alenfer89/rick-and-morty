@@ -1,6 +1,16 @@
 <template>
     <nav aria-label="">
         <ul class="pagination justify-content-center">
+            <!-- first page LI only visible on more than 1 page-->
+            <li class="page-item"
+            v-if="(this.totalPages !== 1)"
+            @click.prevent='setPage(1, null)'
+            >
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                    First
+                </a>
+            </li>
+            <!-- prev page LI -->
             <li class="page-item"
             :class="(this.prevPage == null) ? 'disabled' : '' "
             @click.prevent='nearbyPage(apiPrev, activePage, prev)'
@@ -10,7 +20,7 @@
                 </a>
             </li>
             <!-- LIs only visible to keep 5 elements visible if there are enough pages -->
-            <li class="page-item" 
+            <li class="page-item"
             v-if="(((this.totalPages - this.activePage) < 1) && ((this.activePage - 4) > 0))"
             @click.prevent='setPage((activePage - 4), null)'
             >
@@ -18,7 +28,7 @@
                     {{ this.activePage - 4 }}
                 </a>
             </li>
-            <li class="page-item" 
+            <li class="page-item"
             v-if="(((this.totalPages - this.activePage) < 2) && ((this.activePage - 3) > 0))"
             @click.prevent='setPage((activePage - 3), null)'
             >
@@ -27,7 +37,7 @@
                 </a>
             </li>
             <!-- previous two pages LIs -->
-            <li class="page-item" 
+            <li class="page-item"
             v-if="(this.activePage > 2)"
             @click.prevent='setPage((activePage - 2), null)'
             >
@@ -35,7 +45,7 @@
                     {{ this.activePage - 2 }}
                 </a>
             </li>
-            <li class="page-item" 
+            <li class="page-item"
             v-if="(this.activePage > 1)"
             @click.prevent='setPage((activePage - 1), null)'
             >
@@ -44,7 +54,7 @@
                 </a>
             </li>
             <!-- active page LI -->
-            <li class="page-item" 
+            <li class="page-item"
             :class="'active'"
             >
                 <a class="page-link" href="#">
@@ -69,7 +79,7 @@
                 </a>
             </li>
             <!-- LIs only visible to keep 5 elements visible if there are enough pages -->
-            <li class="page-item" 
+            <li class="page-item"
             v-if="((this.activePage == 2) || (this.activePage == 1)) && (this.activePage !== this.totalPages) && ((this.activePage + 2) !== this.totalPages)"
             @click.prevent='setPage((activePage + 3), null)'
             >
@@ -77,7 +87,7 @@
                     {{ this.activePage + 3 }}
                 </a>
             </li>
-            <li class="page-item" 
+            <li class="page-item"
             v-if="(this.activePage == 1) && (this.activePage !== this.totalPages) && ((this.activePage + 3) !== this.totalPages)"
             @click.prevent='setPage((activePage + 4), null)'
             >
@@ -91,6 +101,15 @@
             @click.prevent='nearbyPage(apiNext, activePage, next)'>
                 <a class="page-link" href="#">
                     Next
+                </a>
+            </li>
+            <!-- last page LI only visible on more than 1 page-->
+            <li class="page-item"
+            v-if="(this.totalPages !== 1)"
+            @click.prevent='setPage(totalPages, null)'
+            >
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                    Last
                 </a>
             </li>
         </ul>
@@ -127,7 +146,7 @@ export default {
         },
     },
     methods: {
-        nearbyPage(address, active, direction){
+        nearbyPage: function (address, active, direction){
             if(address !== null){
                 this.setPage(active, direction)
                 this.$emit('address', address)
