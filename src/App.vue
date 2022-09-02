@@ -72,7 +72,6 @@ export default {
   data: function(){
         return{
             apiBaseAddress: "https://rickandmortyapi.com/api/character",
-            apiAddress : null,
             apiNextAddress : null,
             apiPrevAddress : null,
             apiPagesCount : null,
@@ -89,36 +88,32 @@ export default {
             axios
             .get(address)
             .then((result) => {
-                this.apiAddress = address;
                 this.charactersList = result.data.results;
                 this.apiNextAddress = result.data.info.next;
                 this.apiPrevAddress = result.data.info.prev;
                 this.apiPagesCount = result.data.info.pages;
-
-                // console.log(this.charactersList);
-                // console.log(this.apiNextAddress);
-                // console.log(this.apiPrevAddress);
-                // console.warn(this.apiPagesCount);
             })
             .catch((error) => {
                 console.error(error);
+                console.log('ricerca scarsa')
             })
         },
         changeActivePage(number){
             this.activePage = number;
-            //return this.activePage;
         },
         getFilteredChar({input, page}){
             if (page == null){
               this.stringToSearch = input;
               page = 1;
               this.activePage = page;
-              console.log('check nr pagina')
+              //console.warn('check nr pagina')
+              //console.warn(input)
+              //console.warn(page)
             } else if (input == null) {
               input = this.stringToSearch;
-              console.log('check string')
-              console.log(input)
-              console.log(page)
+              //console.log('check string')
+              //console.log(input)
+              //console.log(page)
             }
             let newAddress = this.apiBaseAddress + '?page=' + page + '&name=' + input;
             this.getApiList(newAddress);
@@ -126,7 +121,7 @@ export default {
         resetAll(){
             this.getApiList(this.apiBaseAddress),
             this.activePage = 1;
-            this.stringToSearch = null;
+            this.stringToSearch = '';
         }
     }
 }
