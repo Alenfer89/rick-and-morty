@@ -34,7 +34,6 @@ export default {
     data: function(){
         return {
             searchInput : '',
-            apiByChar: 'https://rickandmortyapi.com/api/character/?name=',
         }
     },
     methods: {
@@ -42,9 +41,7 @@ export default {
             if(this.searchInput === '') {
                 console.log('check empty string');
             } else {
-                let address = this.apiByChar + this.searchInput;
-                this.$emit('address', address);
-                console.error(address)
+                this.$emit('userInput', {input : this.searchInput, page : null});
             }
         }
     }

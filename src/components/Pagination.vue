@@ -3,31 +3,31 @@
         <ul class="pagination justify-content-center">
             <li class="page-item"
             :class="(this.prevPage == null) ? 'disabled' : '' "
-            @click.prevent='changePage(apiPrev, activePage, prev)'
+            @click.prevent='nearbyPage(apiPrev, activePage, prev)'
             >
                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
                     Previous
                 </a>
             </li>
             <li class="page-item" 
-            v-if="((this.totalPages - this.activePage) < 2)"
-            @click.prevent='changePage(apiByPage + (activePage - 2), (activePage - 2), null)'
+            v-if="((this.totalPages - this.activePage) < 1)"
+            @click.prevent='setPage((activePage - 4), null)'
             >
-                <a class="page-link" href="#">
+                <a class="page-link text-success" href="#">
                     {{ this.activePage - 4 }}
                 </a>
             </li>
             <li class="page-item" 
-            v-if="((this.totalPages - this.activePage) < 1)"
-            @click.prevent='changePage(apiByPage + (activePage - 2), (activePage - 2), null)'
+            v-if="((this.totalPages - this.activePage) < 2)"
+            @click.prevent='setPage((activePage - 3), null)'
             >
-                <a class="page-link" href="#">
+                <a class="page-link text-secondary" href="#">
                     {{ this.activePage - 3 }}
                 </a>
             </li>
             <li class="page-item" 
             v-if="(this.activePage > 2)"
-            @click.prevent='changePage(apiByPage + (activePage - 2), (activePage - 2), null)'
+            @click.prevent='setPage((activePage - 2), null)'
             >
                 <a class="page-link" href="#">
                     {{ this.activePage - 2 }}
@@ -35,7 +35,7 @@
             </li>
             <li class="page-item" 
             v-if="(this.activePage > 1)"
-            @click.prevent='changePage(apiByPage + (activePage - 1), (activePage - 1), null)'
+            @click.prevent='setPage((activePage - 1), null)'
             >
                 <a class="page-link" href="#">
                     {{ this.activePage - 1 }}
@@ -50,7 +50,7 @@
             </li>
             <li class="page-item"
             v-if='((this.totalPages - this.activePage) > 0)'
-            @click.prevent='changePage(apiByPage + (activePage + 1), (activePage + 1), null)'
+            @click.prevent='setPage((activePage + 1), null)'
             >
                 <a class="page-link" href="#">
                     {{ this.activePage + 1 }}
@@ -58,7 +58,7 @@
             </li>
             <li class="page-item"
             v-if='((this.totalPages - this.activePage) > 1)'
-            @click.prevent='changePage(apiByPage + (activePage + 2), (activePage + 2), null)'
+            @click.prevent='setPage((activePage + 2), null)'
             >
                 <a class="page-link" href="#">
                     {{ this.activePage + 2 }}
@@ -66,7 +66,7 @@
             </li>
             <li class="page-item" 
             v-if="(this.activePage == 2) || (this.activePage == 1)"
-            @click.prevent='changePage(apiByPage + (activePage + 3), (activePage + 3), null)'
+            @click.prevent='setPage((activePage + 3), null)'
             >
                 <a class="page-link" href="#">
                     {{ this.activePage + 3 }}
@@ -74,7 +74,7 @@
             </li>
             <li class="page-item" 
             v-if="(this.activePage == 1)"
-            @click.prevent='changePage(apiByPage + (activePage + 4), (activePage + 4), null)'
+            @click.prevent='setPage((activePage + 4), null)'
             >
                 <a class="page-link" href="#">
                     {{ this.activePage + 4 }}
@@ -82,7 +82,7 @@
             </li>
             <li class="page-item"
             :class="(this.nextPage == null) ? 'disabled' : '' "
-            @click.prevent='changePage(apiNext, activePage, next)'>
+            @click.prevent='nearbyPage(apiNext, activePage, next)'>
                 <a class="page-link" href="#">
                     Next
                 </a>
@@ -100,7 +100,6 @@ export default {
             //searchStart : true,
             apiNext : null,
             apiPrev : null,
-            apiByPage : null,
             activePage : 1,
             totalPages : null,
             next : 'next',
@@ -119,32 +118,23 @@ export default {
         },
         newActive(){
             this.activePage = this.newActive;
-            //console.error(this.activePage)
         },
-        updatingAddress(){
-            this.apiByPage = this.updatingAddress;
-            console.log(this.apiByPage)
-            console.log(this.updatingAddress)
-        }
     },
     methods: {
-        changePage(address, active, direction){
+        nearbyPage(address, active, direction){
             if(address !== null){
-                //console.error(address)
-                //console.error(active)
-                //console.error(direction)
-                this.changeActive(active, direction)
+                this.setPage(active, direction)
                 this.$emit('address', address)
-                //this.$emit('active', active)
             }
         },
-        changeActive(active, direction){
+        setPage(active, direction){
             if(direction == 'next'){
                 this.activePage = active + 1;
             } else if (direction == 'prev') {
                 this.activePage = active - 1;
             } else {
                 this.activePage = active;
+                this.$emit('userInput', {input : null , page : this.activePage});
             }
             this.$emit('active', this.activePage)
         }
