@@ -123,7 +123,8 @@ export default {
         },
         updatingAddress(){
             this.apiByPage = this.updatingAddress;
-            console.log('ciao')
+            console.log(this.apiByPage)
+            console.log(this.updatingAddress)
         }
     },
     methods: {

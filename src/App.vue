@@ -90,10 +90,10 @@ export default {
               this.apiPrevAddress = result.data.info.prev;
               this.apiPagesCount = result.data.info.pages;
 
-              //console.log(this.charactersList);
-              //console.log(this.apiNextAddress);
-              //console.log(this.apiPrevAddress);
-              //console.warn(this.apiPagesCount);
+              console.log(this.charactersList);
+              console.log(this.apiNextAddress);
+              console.log(this.apiPrevAddress);
+              console.warn(this.apiPagesCount);
           })
           .catch((error) => {
               console.error(error);
@@ -102,6 +102,9 @@ export default {
       changeActivePage(number){
         this.activePage = number;
         return this.activePage;
+      },
+      addressComposer(){
+        
       }
   }
 }
