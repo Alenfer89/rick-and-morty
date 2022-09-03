@@ -1,15 +1,15 @@
 <template>
     <div class="card shadow">
-        <img :src="image" class="p-3 card-img-top rounded-circle mb-2" alt="...">
+        <img :src="image" class="p-3 card-img-top rounded-circle mb-2" :alt="'image of ' + name">
         <div class="card-body text-center">
             <h5 class="card-title">
-                Name: {{title}}
+                Name: {{ name }}
             </h5>
             <p class="card-text m-2 fw-bold">
-                Status: {{description}}
+                Status: {{ status }}
             </p>
             <p class="card-text">
-                Ethnicity: {{boldDescription}}
+                Ethnicity: {{ species }}
             </p>
         </div>
     </div>
@@ -18,7 +18,7 @@
 <script>
 export default {
     name: 'SingleCard',
-    props: ['title', 'image', 'description', 'boldDescription'],
+    props: ['name', 'image', 'status', 'species'],
 }
 </script>
 

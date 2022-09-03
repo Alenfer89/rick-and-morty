@@ -3,10 +3,12 @@
         <ul class="pagination justify-content-center">
             <!-- first page LI only visible on more than 1 page-->
             <li class="page-item"
+            :class="(this.activePage == 1) ? 'disabled' : '' "
             v-if="(this.totalPages !== 1)"
             @click.prevent='setPage(1, null)'
             >
                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                    <i class="fa-solid fa-angles-left"></i>
                     First
                 </a>
             </li>
@@ -16,6 +18,7 @@
             @click.prevent='nearbyPage(apiPrev, activePage, prev)'
             >
                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                    <i class="fa-solid fa-angle-left"></i>
                     Previous
                 </a>
             </li>
@@ -101,15 +104,18 @@
             @click.prevent='nearbyPage(apiNext, activePage, next)'>
                 <a class="page-link" href="#">
                     Next
+                    <i class="fa-solid fa-angle-right"></i>
                 </a>
             </li>
             <!-- last page LI only visible on more than 1 page-->
             <li class="page-item"
+            :class="(this.activePage == this.totalPages) ? 'disabled' : '' "
             v-if="(this.totalPages !== 1)"
             @click.prevent='setPage(totalPages, null)'
             >
                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
                     Last
+                    <i class="fa-solid fa-angles-right"></i>
                 </a>
             </li>
         </ul>

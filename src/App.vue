@@ -26,10 +26,10 @@
         v-for="element in charactersList" 
         :key="element.id">
           <Card
-          :title="element.name"
+          :name="element.name"
           :image="element.image"
-          :description="element.status"
-          :boldDescription="element.species"
+          :status="element.status"
+          :species="element.species"
           />
         </div>
         <div class="col-12"

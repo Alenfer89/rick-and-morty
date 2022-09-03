@@ -13,7 +13,7 @@
                     <div class="input-group w-25">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">
-                                @
+                                <i class="fa-solid fa-magnifying-glass"></i>
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"
@@ -77,6 +77,9 @@ export default {
                 min-width: 250px;
             }
         }
+    }
+    #basic-addon1{
+        height: 100%;
     }
 
 </style>
