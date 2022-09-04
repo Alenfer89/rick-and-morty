@@ -46,7 +46,7 @@
         v-if='(charactersList.length == 0)'
         >
           <h2 class="text-warning">
-            Your search of "{{ this.stringToSearch }}" didn't produce any result
+            {{ this.message }}
           </h2>
           <button class="btn btn-danger"
           @click='resetAll()'>
@@ -97,7 +97,8 @@ export default {
             activePage : 1,
             charactersList : [],
             stringToSearch : '',
-            favList : []
+            favList : [],
+            message : '',
         }
   },
   created: function(){
@@ -108,7 +109,6 @@ export default {
             axios
             .get(address)
             .then((result) => {
-                console.log(result)
                 this.charactersList = result.data.results;
                 this.apiNextAddress = result.data.info.next;
                 this.apiPrevAddress = result.data.info.prev;
@@ -118,6 +118,7 @@ export default {
                 console.error(error);
                 console.log('ricerca errata')
                 this.charactersList = [];
+                this.message = `Your search of "${this.stringToSearch}" didn't produce any result`;
             })
         },
         changeActivePage(number){
@@ -140,7 +141,16 @@ export default {
             axios
             .get(newAddress)
             .then((result) => {
-                this.charactersList = result.data
+                if(this.favList.length > 1){
+                    this.charactersList = result.data
+                } else if(this.favList.length == 1){
+                    let charObject = result.data;
+                    this.charactersList = [];
+                    this.charactersList.push(charObject)
+                } else {
+                    this.charactersList = [];
+                    this.message = 'You don\'t have any favourite character yet!'
+                }
             })
             .catch((error) => {
                 console.error(error);
