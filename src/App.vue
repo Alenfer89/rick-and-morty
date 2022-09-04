@@ -10,7 +10,7 @@
         Get All Characters!
       </button>
       <button class="btn btn-warning"
-      @click='resetAll()'>
+      @click='getFavourites(favList)'>
         Your favs!
       </button>
     </div>
@@ -56,7 +56,6 @@
       </div>
       
       <ModalCard />
-      <Favourite />
     </div>
     <Pagination
     :nextPage='apiNextAddress'
@@ -76,7 +75,6 @@ import Jumbotron from './components/Jumbotron.vue';
 import Card from './components/Card.vue';
 import ModalCard from './components/ModalCard.vue';
 import Pagination from './components/Pagination.vue';
-import Favourite from './components/Favourite.vue';
 //utilities
 import axios from "axios";
 //import bootstrap from "~bootstrap/scss/bootstrap.scss";
@@ -88,12 +86,11 @@ export default {
     Card,
     ModalCard,
     Pagination,
-    Favourite,
     //Loader
   },
   data: function(){
         return{
-            apiBaseAddress: "https://rickandmortyapi.com/api/character",
+            apiBaseAddress: "https://rickandmortyapi.com/api/character/",
             apiNextAddress : '',
             apiPrevAddress : '',
             apiPagesCount : null,
@@ -111,6 +108,7 @@ export default {
             axios
             .get(address)
             .then((result) => {
+                console.log(result)
                 this.charactersList = result.data.results;
                 this.apiNextAddress = result.data.info.next;
                 this.apiPrevAddress = result.data.info.prev;
@@ -130,17 +128,25 @@ export default {
               this.stringToSearch = input;
               page = 1;
               this.activePage = page;
-              //console.warn('check nr pagina')
-              //console.warn(input)
-              //console.warn(page)
             } else if (input == null) {
               input = this.stringToSearch;
-              //console.log('check string')
-              //console.log(input)
-              //console.log(page)
             }
             let newAddress = this.apiBaseAddress + '?page=' + page + '&name=' + input;
             this.getApiList(newAddress);
+        },
+        getFavourites(array){
+            let newAddress = this.apiBaseAddress + array;
+            console.log(newAddress)
+            axios
+            .get(newAddress)
+            .then((result) => {
+                this.charactersList = result.data
+            })
+            .catch((error) => {
+                console.error(error);
+                console.log('ricerca errata')
+                this.charactersList = [];
+            })
         },
         resetAll(){
             this.getApiList(this.apiBaseAddress),
