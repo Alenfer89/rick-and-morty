@@ -34,15 +34,20 @@
 <script>
 export default {
     name: 'SingleCard',
-    props: ['name', 'image', 'status', 'species', 'charId'],
+    props: ['name', 'image', 'status', 'species', 'charId', "favList"],
     data: function(){
         return{
             isLiked : false
         }
     },
+    mounted(){
+        if(this.favList.includes(this.charId)){
+            this.isLiked = true;
+        }
+        
+    },
     methods: {
         changeFavStatus(id){
-            console.log('aggiunto')
             this.isLiked = !this.isLiked
             this.$emit('id', id)
         }

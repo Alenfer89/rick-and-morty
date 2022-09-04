@@ -9,7 +9,9 @@
             >
                 <a class="page-link shadow-none" href="#">
                     <i class="fa-solid fa-angles-left"></i>
-                    First
+                    <span class="d-none d-sm-inline"> 
+                        First
+                    </span>
                 </a>
             </li>
             <!-- prev page LI -->
@@ -19,7 +21,9 @@
             >
                 <a class="page-link shadow-none" href="#" tabindex="-1" aria-disabled="true">
                     <i class="fa-solid fa-angle-left"></i>
-                    Previous
+                    <span class="d-none d-sm-inline"> 
+                        Previous
+                    </span>
                 </a>
             </li>
             <!-- LIs only visible to keep 5 elements visible if there are enough pages -->
@@ -103,7 +107,9 @@
             :class="(this.nextPage == null) ? 'disabled' : '' "
             @click.prevent='nearbyPage(apiNext, activePage, next)'>
                 <a class="page-link shadow-none" href="#">
-                    Next
+                    <span class="d-none d-sm-inline"> 
+                        Next
+                    </span>
                     <i class="fa-solid fa-angle-right"></i>
                 </a>
             </li>
@@ -114,7 +120,9 @@
             @click.prevent='setPage(totalPages, null)'
             >
                 <a class="page-link shadow-none"  href="#">
-                    Last
+                    <span class="d-none d-sm-inline"> 
+                        Last
+                    </span>
                     <i class="fa-solid fa-angles-right"></i>
                 </a>
             </li>

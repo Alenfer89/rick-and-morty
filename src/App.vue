@@ -37,6 +37,7 @@
           :status="element.status"
           :species="element.species"
           :charId="element.id"
+          :favList='favList'
           @id='changeFavStatus'
           />
 
@@ -99,7 +100,7 @@ export default {
             activePage : 1,
             charactersList : [],
             stringToSearch : '',
-            arrayOfFavs : []
+            favList : []
         }
   },
   created: function(){
@@ -147,7 +148,20 @@ export default {
             this.stringToSearch = '';
         },
         changeFavStatus(id){
-            console.log(id)
+            console.error(id)
+            if(!this.favList.includes(id)){
+              this.favList.push(id);
+              console.log('aggiunto')
+              console.log(this.favList)
+            } else {
+              const charIndex = this.favList.indexOf(id);
+              if (charIndex > -1) { 
+                this.favList.splice(charIndex, 1); 
+                console.log('extra-check')
+              }
+              console.log('rimosso')
+              console.warn(this.favList)
+            }
         }
     }
 }
