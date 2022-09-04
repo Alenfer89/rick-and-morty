@@ -1,6 +1,6 @@
 <template>
 
-    <header class="ax-jumbo-bg position-relative">
+    <header class="ax-jumbo-bg position-relative shadow-lg">
         <div class="ax-layer">
             <!-- reading helper d/t image -->
         </div>

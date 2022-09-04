@@ -1,8 +1,6 @@
 <template>
-    <div>
-        <h2>
-            modal
-        </h2>
+    <div class="modal-dialog modal-dialog-centered">
+    
     </div>
 </template>
 

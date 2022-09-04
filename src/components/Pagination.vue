@@ -1,13 +1,13 @@
 <template>
     <nav aria-label="">
-        <ul class="pagination justify-content-center">
+        <ul class="pagination justify-content-center py-3 mb-0">
             <!-- first page LI only visible on more than 1 page-->
             <li class="page-item"
             :class="(this.activePage == 1) ? 'disabled' : '' "
             v-if="(this.totalPages !== 1)"
             @click.prevent='setPage(1, null)'
             >
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                <a class="page-link shadow-none" href="#">
                     <i class="fa-solid fa-angles-left"></i>
                     First
                 </a>
@@ -17,7 +17,7 @@
             :class="(this.prevPage == null) ? 'disabled' : '' "
             @click.prevent='nearbyPage(apiPrev, activePage, prev)'
             >
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                <a class="page-link shadow-none" href="#" tabindex="-1" aria-disabled="true">
                     <i class="fa-solid fa-angle-left"></i>
                     Previous
                 </a>
@@ -27,7 +27,7 @@
             v-if="(((this.totalPages - this.activePage) < 1) && ((this.activePage - 4) > 0))"
             @click.prevent='setPage((activePage - 4), null)'
             >
-                <a class="page-link text-success" href="#">
+                <a class="page-link shadow-none text-success" href="#">
                     {{ this.activePage - 4 }}
                 </a>
             </li>
@@ -35,7 +35,7 @@
             v-if="(((this.totalPages - this.activePage) < 2) && ((this.activePage - 3) > 0))"
             @click.prevent='setPage((activePage - 3), null)'
             >
-                <a class="page-link text-secondary" href="#">
+                <a class="page-link shadow-none text-secondary" href="#">
                     {{ this.activePage - 3 }}
                 </a>
             </li>
@@ -44,7 +44,7 @@
             v-if="(this.activePage > 2)"
             @click.prevent='setPage((activePage - 2), null)'
             >
-                <a class="page-link text-danger" href="#">
+                <a class="page-link shadow-none text-danger" href="#">
                     {{ this.activePage - 2 }}
                 </a>
             </li>
@@ -52,7 +52,7 @@
             v-if="(this.activePage > 1)"
             @click.prevent='setPage((activePage - 1), null)'
             >
-                <a class="page-link text-warning" href="#">
+                <a class="page-link shadow-none text-warning" href="#">
                     {{ this.activePage - 1 }}
                 </a>
             </li>
@@ -60,7 +60,7 @@
             <li class="page-item"
             :class="'active'"
             >
-                <a class="page-link" href="#">
+                <a class="page-link shadow-none" href="#">
                     {{ this.activePage }}
                 </a>
             </li>
@@ -69,7 +69,7 @@
             v-if='((this.totalPages - this.activePage) > 0)'
             @click.prevent='setPage((activePage + 1), null)'
             >
-                <a class="page-link text-warning" href="#">
+                <a class="page-link shadow-none text-warning" href="#">
                     {{ this.activePage + 1 }}
                 </a>
             </li>
@@ -77,7 +77,7 @@
             v-if='((this.totalPages - this.activePage) > 1)'
             @click.prevent='setPage((activePage + 2), null)'
             >
-                <a class="page-link text-danger" href="#">
+                <a class="page-link shadow-none text-danger" href="#">
                     {{ this.activePage + 2 }}
                 </a>
             </li>
@@ -86,7 +86,7 @@
             v-if="((this.activePage == 2) || (this.activePage == 1)) && (this.activePage !== this.totalPages) && ((this.activePage + 2) !== this.totalPages)"
             @click.prevent='setPage((activePage + 3), null)'
             >
-                <a class="page-link text-secondary" href="#">
+                <a class="page-link shadow-none text-secondary" href="#">
                     {{ this.activePage + 3 }}
                 </a>
             </li>
@@ -94,7 +94,7 @@
             v-if="(this.activePage == 1) && (this.activePage !== this.totalPages) && ((this.activePage + 3) !== this.totalPages)"
             @click.prevent='setPage((activePage + 4), null)'
             >
-                <a class="page-link text-success" href="#">
+                <a class="page-link shadow-none text-success" href="#">
                     {{ this.activePage + 4 }}
                 </a>
             </li>
@@ -102,7 +102,7 @@
             <li class="page-item"
             :class="(this.nextPage == null) ? 'disabled' : '' "
             @click.prevent='nearbyPage(apiNext, activePage, next)'>
-                <a class="page-link" href="#">
+                <a class="page-link shadow-none" href="#">
                     Next
                     <i class="fa-solid fa-angle-right"></i>
                 </a>
@@ -113,7 +113,7 @@
             v-if="(this.totalPages !== 1)"
             @click.prevent='setPage(totalPages, null)'
             >
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                <a class="page-link shadow-none"  href="#">
                     Last
                     <i class="fa-solid fa-angles-right"></i>
                 </a>
@@ -174,6 +174,18 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.page-link.shadow-none{
+    cursor: pointer;
+}
 
+li{
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    &:first-child{
+        border-radius: 0.375rem 0 0 0.375rem;
+    }
+    &:last-child{
+        border-radius: 0 0.375rem 0.375rem 0;
+    }
+}
 
 </style>

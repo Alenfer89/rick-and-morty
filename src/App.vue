@@ -4,11 +4,16 @@
     <Jumbotron
     @userInput='getFilteredChar'
     />
-
-    <button class="btn btn-primary"
-    @click='resetAll()'>
-      Get All Characters!
-    </button>
+    <div class="d-flex justify-content-center p-4">
+      <button class="btn btn-primary me-4"
+      @click='resetAll()'>
+        Get All Characters!
+      </button>
+      <button class="btn btn-warning"
+      @click='resetAll()'>
+        Your favs!
+      </button>
+    </div>
 
     <Pagination
     :nextPage='apiNextAddress'
@@ -20,17 +25,21 @@
     @userInput='getFilteredChar'
     />
 
-    <div class="container-fluid p-5">
-      <div class="row p-5">
+    <div class="container-fluid px-5">
+      <div class="row px-5">
         <div class="col-3 px-4 py-3"
         v-for="element in charactersList" 
         :key="element.id">
+
           <Card
           :name="element.name"
           :image="element.image"
           :status="element.status"
           :species="element.species"
+          :charId="element.id"
+          @id='changeFavStatus'
           />
+
         </div>
         <div class="col-12"
         v-if='(charactersList.length == 0)'
@@ -69,6 +78,7 @@ import Pagination from './components/Pagination.vue';
 import Favourite from './components/Favourite.vue';
 //utilities
 import axios from "axios";
+//import bootstrap from "~bootstrap/scss/bootstrap.scss";
 
 export default {
   name: 'App',
@@ -88,7 +98,8 @@ export default {
             apiPagesCount : null,
             activePage : 1,
             charactersList : [],
-            stringToSearch : ''
+            stringToSearch : '',
+            arrayOfFavs : []
         }
   },
   created: function(){
@@ -134,6 +145,9 @@ export default {
             this.getApiList(this.apiBaseAddress),
             this.activePage = 1;
             this.stringToSearch = '';
+        },
+        changeFavStatus(id){
+            console.log(id)
         }
     }
 }
