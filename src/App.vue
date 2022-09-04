@@ -16,6 +16,7 @@
     </div>
 
     <Pagination
+    v-if='!showFavs'
     :nextPage='apiNextAddress'
     :prevPage='apiPrevAddress'
     :pageCount='apiPagesCount'
@@ -58,6 +59,7 @@
       <ModalCard />
     </div>
     <Pagination
+    v-if='!showFavs'
     :nextPage='apiNextAddress'
     :prevPage='apiPrevAddress'
     :pageCount='apiPagesCount'
@@ -98,6 +100,7 @@ export default {
             charactersList : [],
             stringToSearch : '',
             favList : [],
+            showFavs : false,
             message : '',
         }
   },
@@ -106,13 +109,22 @@ export default {
   },
   methods: {
         getApiList(address){
+            this.showFavs = false;
             axios
             .get(address)
             .then((result) => {
+                console.warn(this.charactersList)
+                console.warn(this.apiNextAddress)
+                console.warn(this.apiPrevAddress)
+                console.warn(this.apiPagesCount)
                 this.charactersList = result.data.results;
                 this.apiNextAddress = result.data.info.next;
                 this.apiPrevAddress = result.data.info.prev;
                 this.apiPagesCount = result.data.info.pages;
+                console.log(this.charactersList)
+                console.log(this.apiNextAddress)
+                console.log(this.apiPrevAddress)
+                console.log(this.apiPagesCount)
             })
             .catch((error) => {
                 console.error(error);
@@ -136,8 +148,8 @@ export default {
             this.getApiList(newAddress);
         },
         getFavourites(array){
+            this.showFavs = true;
             let newAddress = this.apiBaseAddress + array;
-            console.log(newAddress)
             axios
             .get(newAddress)
             .then((result) => {
@@ -159,6 +171,10 @@ export default {
             })
         },
         resetAll(){
+            this.charactersList = [];
+            this.apiNextAddress = '';
+            this.apiPrevAddress = '';
+            this.apiPagesCount = null;
             this.getApiList(this.apiBaseAddress),
             this.activePage = 1;
             this.stringToSearch = '';
