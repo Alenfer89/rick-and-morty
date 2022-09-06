@@ -17,15 +17,15 @@
                 Status: {{ status }}
             </p>
             <p class="card-text">
-                Ethnicity: {{ species }}
+                Species: {{ species }}
             </p>
         </div>
         <div class="card-footer d-flex justify-content-between">
-            <a href="#" class="card-link"
+            <a href="#" class="btn btn-primary"
             @click.prevent="showModal(charId)">
                 More info..
             </a>
-            <a href="#" class="card-link">
+            <a href="#" class="btn btn-secondary disabled">
                 Episodes
             </a>
         </div>
@@ -67,7 +67,6 @@ export default {
         top: -20px;
         right: -25px;
         padding: .5rem;
-        //color: rgb(255, 200, 0);
         border: .5px solid goldenrod;
         background-color: rgb(250, 250, 250);
         font-size: .7rem;
@@ -82,6 +81,6 @@ export default {
     }
     .ax-favourite:hover + .ax-popup{
             display: inline-block;
-        }
+    }
 
 </style>

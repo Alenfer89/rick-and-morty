@@ -28,7 +28,7 @@
 
     <div class="container-fluid px-5">
       <ModalCard
-      v-show="showModal"
+      v-if="showModal"
       :character='modalChar'
       @close='modalClose'
       />
