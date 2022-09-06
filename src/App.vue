@@ -27,6 +27,11 @@
     />
 
     <div class="container-fluid px-5">
+      <ModalCard
+      v-show="showModal"
+      :character='modalChar'
+      @close='modalClose'
+      />
       <div class="row px-5">
         <div class="col-3 px-4 py-3"
         v-for="element in charactersList" 
@@ -39,7 +44,8 @@
           :species="element.species"
           :charId="element.id"
           :favList='favList'
-          @id='changeFavStatus'
+          @favId='changeFavStatus'
+          @modalId='modalRequest'
           />
 
         </div>
@@ -55,8 +61,6 @@
           </button>
         </div>
       </div>
-      
-      <ModalCard />
     </div>
     <Pagination
     v-if='!showFavs'
@@ -102,6 +106,8 @@ export default {
             favList : [],
             showFavs : false,
             message : '',
+            modalChar : {},
+            showModal : false
         }
   },
   created: function(){
@@ -113,18 +119,10 @@ export default {
             axios
             .get(address)
             .then((result) => {
-                console.warn(this.charactersList)
-                console.warn(this.apiNextAddress)
-                console.warn(this.apiPrevAddress)
-                console.warn(this.apiPagesCount)
                 this.charactersList = result.data.results;
                 this.apiNextAddress = result.data.info.next;
                 this.apiPrevAddress = result.data.info.prev;
                 this.apiPagesCount = result.data.info.pages;
-                console.log(this.charactersList)
-                console.log(this.apiNextAddress)
-                console.log(this.apiPrevAddress)
-                console.log(this.apiPagesCount)
             })
             .catch((error) => {
                 console.error(error);
@@ -138,11 +136,11 @@ export default {
         },
         getFilteredChar({input, page}){
             if (page == null){
-              this.stringToSearch = input;
-              page = 1;
-              this.activePage = page;
+                this.stringToSearch = input;
+                page = 1;
+                this.activePage = page;
             } else if (input == null) {
-              input = this.stringToSearch;
+                input = this.stringToSearch;
             }
             let newAddress = this.apiBaseAddress + '?page=' + page + '&name=' + input;
             this.getApiList(newAddress);
@@ -180,29 +178,41 @@ export default {
             this.stringToSearch = '';
         },
         changeFavStatus(id){
-            console.error(id)
             if(!this.favList.includes(id)){
-              this.favList.push(id);
-              console.log('aggiunto')
-              console.log(this.favList)
+                this.favList.push(id);
             } else {
-              const charIndex = this.favList.indexOf(id);
-              if (charIndex > -1) { 
-                this.favList.splice(charIndex, 1); 
-                console.log('extra-check')
-              }
-              console.log('rimosso')
-              console.warn(this.favList)
+                const charIndex = this.favList.indexOf(id);
+                if (charIndex > -1) { 
+                  this.favList.splice(charIndex, 1);
+                }
             }
+        },
+        modalRequest(id){
+            console.warn(id)
+            this.charactersList.forEach(element => {
+                if(element.id == id){
+                    this.modalChar = element;
+                    this.showModal = true;
+                    document.body.classList.add("modal-on");
+                }
+              })
+        },
+        modalClose(boolean){
+            this.modalChar = {};
+            this.showModal = boolean;
+            document.body.classList.remove("modal-on");
         }
     }
 }
 </script>
 
 <style lang="scss">
-@import '@/style/style.scss';
+  @import '@/style/style.scss';
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-}
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+  }
+  .modal-on{
+    overflow: hidden;
+  }
 </style>

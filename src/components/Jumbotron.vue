@@ -16,7 +16,7 @@
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"
+                        <input type="text" class="form-control" placeholder="Characters.." aria-label="CharSearch" aria-describedby="basic-addon1"
                         v-model.trim="searchInput"
                         @keyup="newSearchStart"
                         >

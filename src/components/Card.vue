@@ -21,7 +21,8 @@
             </p>
         </div>
         <div class="card-footer d-flex justify-content-between">
-            <a href="#" class="card-link">
+            <a href="#" class="card-link"
+            @click.prevent="showModal(charId)">
                 More info..
             </a>
             <a href="#" class="card-link">
@@ -48,8 +49,11 @@ export default {
     },
     methods: {
         changeFavStatus(id){
-            this.isLiked = !this.isLiked
-            this.$emit('id', id)
+            this.isLiked = !this.isLiked;
+            this.$emit('favId', id);
+        },
+        showModal(id){
+            this.$emit('modalId', id);
         }
     }
 }
