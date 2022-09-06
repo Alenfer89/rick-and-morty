@@ -83,7 +83,6 @@ import ModalCard from './components/ModalCard.vue';
 import Pagination from './components/Pagination.vue';
 //utilities
 import axios from "axios";
-//import bootstrap from "~bootstrap/scss/bootstrap.scss";
 
 export default {
   name: 'App',

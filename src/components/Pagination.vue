@@ -31,7 +31,7 @@
             v-if="(((this.totalPages - this.activePage) < 1) && ((this.activePage - 4) > 0))"
             @click.prevent='setPage((activePage - 4), null)'
             >
-                <a class="page-link shadow-none text-success" href="#">
+                <a class="page-link shadow-none" href="#">
                     {{ this.activePage - 4 }}
                 </a>
             </li>
@@ -39,7 +39,7 @@
             v-if="(((this.totalPages - this.activePage) < 2) && ((this.activePage - 3) > 0))"
             @click.prevent='setPage((activePage - 3), null)'
             >
-                <a class="page-link shadow-none text-secondary" href="#">
+                <a class="page-link shadow-none" href="#">
                     {{ this.activePage - 3 }}
                 </a>
             </li>
@@ -48,7 +48,7 @@
             v-if="(this.activePage > 2)"
             @click.prevent='setPage((activePage - 2), null)'
             >
-                <a class="page-link shadow-none text-danger" href="#">
+                <a class="page-link shadow-none" href="#">
                     {{ this.activePage - 2 }}
                 </a>
             </li>
@@ -56,7 +56,7 @@
             v-if="(this.activePage > 1)"
             @click.prevent='setPage((activePage - 1), null)'
             >
-                <a class="page-link shadow-none text-warning" href="#">
+                <a class="page-link shadow-none" href="#">
                     {{ this.activePage - 1 }}
                 </a>
             </li>
@@ -73,7 +73,7 @@
             v-if='((this.totalPages - this.activePage) > 0)'
             @click.prevent='setPage((activePage + 1), null)'
             >
-                <a class="page-link shadow-none text-warning" href="#">
+                <a class="page-link shadow-none" href="#">
                     {{ this.activePage + 1 }}
                 </a>
             </li>
@@ -81,7 +81,7 @@
             v-if='((this.totalPages - this.activePage) > 1)'
             @click.prevent='setPage((activePage + 2), null)'
             >
-                <a class="page-link shadow-none text-danger" href="#">
+                <a class="page-link shadow-none" href="#">
                     {{ this.activePage + 2 }}
                 </a>
             </li>
@@ -90,7 +90,7 @@
             v-if="((this.activePage == 2) || (this.activePage == 1)) && (this.activePage !== this.totalPages) && ((this.activePage + 2) !== this.totalPages)"
             @click.prevent='setPage((activePage + 3), null)'
             >
-                <a class="page-link shadow-none text-secondary" href="#">
+                <a class="page-link shadow-none" href="#">
                     {{ this.activePage + 3 }}
                 </a>
             </li>
@@ -98,7 +98,7 @@
             v-if="(this.activePage == 1) && (this.activePage !== this.totalPages) && ((this.activePage + 3) !== this.totalPages)"
             @click.prevent='setPage((activePage + 4), null)'
             >
-                <a class="page-link shadow-none text-success" href="#">
+                <a class="page-link shadow-none" href="#">
                     {{ this.activePage + 4 }}
                 </a>
             </li>
@@ -136,7 +136,6 @@ export default {
     props: ['nextPage', 'prevPage', 'pageCount', 'newActive', 'updatingAddress'],
     data: function(){
         return {
-            //searchStart : true,
             apiNext : null,
             apiPrev : null,
             activePage : 1,

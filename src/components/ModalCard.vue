@@ -3,7 +3,8 @@
         <div class="card w-25">
             <img :src="character.image" class="card-img-top position-relative" :alt="'Full image of ' + character.name">
             <button type="button" class="btn-close"
-            @click.prevent='closeModal'></button>
+            @click.prevent='closeModal'
+            ></button>
             <div class="card-body">
                 <h5 class="card-title">
                     {{ character.name }}
@@ -24,6 +25,9 @@
                 </li>
                 <li class="list-group-item">
                     Species: {{ character.species }}
+                </li>
+                <li class="list-group-item">
+                    Appeared in {{ Object.keys(this.character.episode).length }} episode{{ Object.keys(this.character.episode).length > 1 ? 's' : '' }}
                 </li>
             </ul>
             <div class="card-body d-flex justify-content-end">
