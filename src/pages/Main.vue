@@ -17,7 +17,7 @@
         </div>
 <!-- top pagination component -->
         <Pagination
-        v-if='!showFavs'
+        v-if='showPagination'
         :nextPage='apiNextAddress'
         :prevPage='apiPrevAddress'
         :pageCount='apiPagesCount'
@@ -53,10 +53,11 @@
                 <div class="col-12"
                 v-if='(charactersList.length == 0)'
                 >
-                    <h2 class="text-warning">
+                    <h1 class="text-warning">
                         {{ this.message }}
-                    </h2>
+                    </h1>
                     <button class="btn btn-danger"
+                    v-show='!showLoader'
                     @click='resetAll()'>
                         Refresh!
                     </button>
@@ -65,7 +66,7 @@
         </div>
 <!-- bottom pagination component -->
         <Pagination
-        v-if='!showFavs'
+        v-if='showPagination'
         :nextPage='apiNextAddress'
         :prevPage='apiPrevAddress'
         :pageCount='apiPagesCount'
@@ -74,6 +75,7 @@
         @active='changeActivePage'
         @userInput='getFilteredChar'
         />
+        <Loader v-if='showLoader' />
     </main>
 </template>
 
@@ -83,6 +85,7 @@ import Jumbotron from '../components/Jumbotron.vue';
 import Card from '../components/Card.vue';
 import ModalCard from '../components/ModalCard.vue';
 import Pagination from '../components/Pagination.vue';
+import Loader from '../components/Loader.vue';
 //utilities
 import axios from "axios";
 
@@ -93,7 +96,7 @@ export default {
         Card,
         ModalCard,
         Pagination,
-        //Loader
+        Loader
     },
     data: function(){
         return{
@@ -105,18 +108,23 @@ export default {
             charactersList : [],
             stringToSearch : '',
             favList : [],
-            showFavs : false,
-            message : '',
+            showPagination : false,
+            message : 'Loading..',
             modalChar : {},
-            showModal : false
+            showModal : false,
+            showLoader : true
         }
     },
     created: function(){
+        setTimeout(() => {
             this.getApiList(this.apiBaseAddress);
+        }, 2000);
+        //this.getApiList(this.apiBaseAddress);
     },
     methods: {
         getApiList(address){
-            this.showFavs = false;
+            this.showPagination = true;
+            this.showLoader = false;
             axios
             .get(address)
             .then((result) => {
@@ -124,6 +132,7 @@ export default {
                 this.apiNextAddress = result.data.info.next;
                 this.apiPrevAddress = result.data.info.prev;
                 this.apiPagesCount = result.data.info.pages;
+                //this.showLoader = false;
             })
             .catch((error) => {
                 console.error(error);
@@ -147,7 +156,7 @@ export default {
             this.getApiList(newAddress);
         },
         getFavourites(array){
-            this.showFavs = true;
+            this.showPagination = false;
             let newAddress = this.apiBaseAddress + array;
             axios
             .get(newAddress)

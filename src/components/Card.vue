@@ -8,7 +8,7 @@
         <span class="ax-popup rounded-pill" :class="isLiked ? 'text-danger' : 'text-warning'">
             {{ isLiked ? 'Remove from your favourites' : 'Add to favourites!' }}
         </span>
-        <img :src="image" class="p-3 mt-3 mb-4 card-img-top rounded-circle" :alt="'image of ' + name">
+        <img :src="image" class="p-3 mt-3 card-img-top rounded-circle" :alt="'image of ' + name">
         <div class="card-body d-flex flex-column">
             <span>
                 Name:

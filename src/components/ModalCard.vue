@@ -1,6 +1,6 @@
 <template>
     <div class="modal-background">
-        <div class="card w-25">
+        <div class="card w-25 animate__animated animate__slideInDown">
             <img :src="character.image" class="card-img-top position-relative" :alt="'Full image of ' + character.name">
             <button type="button" class="btn-close"
             @click.prevent='closeModal'
