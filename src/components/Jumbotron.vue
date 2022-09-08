@@ -5,12 +5,12 @@
             <!-- reading helper d/t image -->
         </div>
         <div class="container-fluid ax-above-layer">
-            <div class="row">
-                <div class="col-12 d-flex justify-content-center align-items-center">
-                    <img class="" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Rick_and_Morty.svg" alt="Title of Rick and Morty tv series">
+            <div class="row justify-content-center">
+                <div class="col-12 d-flex justify-content-center mb-3">
+                    <img class="w-75" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Rick_and_Morty.svg" alt="Title of Rick and Morty tv series">
                 </div>
-                <div class="col-12 d-flex justify-content-center align-items-center">
-                    <div class="input-group w-25">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">
                                 <i class="fa-solid fa-magnifying-glass"></i>

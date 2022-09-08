@@ -1,5 +1,5 @@
 <template>
-    <div class="card shadow position-relative">
+    <div class="card shadow position-relative animate__animated animate__fadeInLeft">
         <span class="ax-favourite"
         @click='changeFavStatus(charId)'>
             <i class="fa-solid fa-star" v-if='isLiked'></i>
@@ -8,24 +8,34 @@
         <span class="ax-popup rounded-pill" :class="isLiked ? 'text-danger' : 'text-warning'">
             {{ isLiked ? 'Remove from your favourites' : 'Add to favourites!' }}
         </span>
-        <img :src="image" class="p-3 card-img-top rounded-circle mb-2" :alt="'image of ' + name">
-        <div class="card-body text-center">
-            <h5 class="card-title">
-                Name: {{ name }}
+        <img :src="image" class="p-3 mt-3 mb-4 card-img-top rounded-circle" :alt="'image of ' + name">
+        <div class="card-body d-flex flex-column">
+            <span>
+                Name:
+            </span>
+            <h5 class="card-title fw-bold">
+                {{ name.length > 20 ? name.substring(0, 18) + '..' : name }}
             </h5>
-            <p class="card-text m-2 fw-bold">
-                Status: {{ status }}
+            <span>
+                Status:
+            </span>
+            <p class="card-text fw-bold"
+            :class="(status == 'Alive') ? 'text-success' : (status == 'Dead') ? 'text-danger' : (status == 'unknown') ? 'text-warning' : ''">
+                {{ status }}
             </p>
-            <p class="card-text">
-                Species: {{ species }}
+            <span>
+                Species:
+            </span>
+            <p class="card-text fw-bold">
+                {{ species }}
             </p>
         </div>
         <div class="card-footer d-flex justify-content-between">
-            <a href="#" class="btn btn-primary"
+            <a href="#" class="btn btn-primary btn-sm"
             @click.prevent="showModal(charId)">
                 More info..
             </a>
-            <a href="#" class="btn btn-secondary disabled">
+            <a href="#" class="btn btn-secondary disabled btn-sm">
                 Episodes
             </a>
         </div>
