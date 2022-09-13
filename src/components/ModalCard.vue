@@ -30,6 +30,12 @@
                     Appeared in {{ Object.keys(this.character.episode).length }} episode{{ Object.keys(this.character.episode).length > 1 ? 's' : '' }}
                 </li>
             </ul>
+            <ul>
+                <li v-for='element in arrayOfEpisodes'
+                :key='element'>
+                    {{ element }}
+                </li>
+            </ul>
             <div class="card-body d-flex justify-content-end">
                 <a href="#" class="btn btn-danger"
                 @click.prevent='closeModal'>
@@ -43,11 +49,14 @@
 <script>
 export default {
     name: 'ModalCard',
-    props: ['character'],
+    props: ['character','arrayOfEpisodes'],
+    mounted(){
+        //console.warn(this.arrayOfEpisodes)
+    },
     methods: {
         closeModal(){
             this.$emit('close', false)
-        }
+        },
     }
 }
 </script>
